@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondomenuprincipal"
+    tools:context=".LogIn">
+
+    <ImageView
+        android:id="@+id/AppLogo"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/applogo" />
+
+    <EditText
+        android:id="@+id/CampoNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        android:textColor="#FFE999"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Adorno" />
+
+    <TextView
+        android:id="@+id/Bienvenido"
+        android:layout_width="208dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/amita"
+        android:text="BIENVENIDO, INVOCADOR"
+        android:textColor="#FADB6A"
+        android:textColorHighlight="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AppLogo" />
+
+    <ImageView
+        android:id="@+id/Adorno"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Bienvenido"
+        app:srcCompat="@drawable/sainnylogo"
+        tools:srcCompat="@drawable/sainnylogo" />
+
+    <ImageButton
+        android:id="@+id/BotonEmpezar"
+        android:layout_width="155dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:onClick="EntrarMenuPricipal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CampoNombre"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <ImageButton
+        android:id="@+id/KakugamesLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="24dp"
+        android:background="#00FFFFFF"
+        android:onClick="WebIcon"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SobreNosotros"
+        app:layout_constraintVertical_bias="0.054"
+        app:srcCompat="@drawable/kakugameslogo" />
+
+    <ImageButton
+        android:id="@+id/SainnyLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="144dp"
+        android:background="#00FFFFFF"
+        android:onClick="WebIcon"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SobreNosotros"
+        app:layout_constraintVertical_bias="0.054"
+        app:srcCompat="@drawable/sainnylogo" />
+
+    <TextView
+        android:id="@+id/SobreNosotros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:text="Sobre nosotros:"
+        android:textColor="#FFE999"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BotonEmpezar" />
+</androidx.constraintlayout.widget.ConstraintLayout>
