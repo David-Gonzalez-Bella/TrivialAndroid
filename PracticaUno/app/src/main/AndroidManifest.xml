@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".MenuPricipal"></activity>
+        <activity android:name=".Ajustes"></activity>
+        <activity android:name=".Categoria" />
+        <activity android:name=".Jugar" />
+        <activity android:name=".MenuPricipal" />
         <activity android:name=".LogIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

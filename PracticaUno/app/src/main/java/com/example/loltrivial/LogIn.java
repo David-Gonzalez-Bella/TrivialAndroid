@@ -20,11 +20,15 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         nombreUsuario = findViewById(R.id.CampoNombre);
+
     }
 
     public void EntrarMenuPricipal(View v){
         if(nombreUsuario.getText().toString().isEmpty()){
-            Toast.makeText(this,"Usuario vacío",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Nombre vacío",Toast.LENGTH_SHORT).show();
+            return;
+        }else if (nombreUsuario.getText().toString().length() > 12 ){
+            Toast.makeText(this,"Nombre demasiado largo",Toast.LENGTH_SHORT).show();
             return;
         }
         Intent menuPrincipal = new Intent(this, MenuPricipal.class); //Arrancar nueva actividad
