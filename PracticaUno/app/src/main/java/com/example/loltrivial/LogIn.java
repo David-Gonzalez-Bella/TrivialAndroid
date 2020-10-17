@@ -7,11 +7,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LogIn extends AppCompatActivity {
 
     //Variables globales
-    public EditText nombreUsuario;
+    public static EditText nombreUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +23,17 @@ public class LogIn extends AppCompatActivity {
     }
 
     public void EntrarMenuPricipal(View v){
+        if(nombreUsuario.getText().toString().isEmpty()){
+            Toast.makeText(this,"Usuario vacío",Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent menuPrincipal = new Intent(this, MenuPricipal.class); //Arrancar nueva actividad
         startActivity(menuPrincipal);
     }
 
     public void WebIcon(View v){
         String url;
-        if(v.getId() == R.id.SainnyLogo){
+        if(v.getId() == R.id.Icono){
             url = "https://www.artstation.com/sainny";
         }else{
             url = "https://kakugames.itch.io/";

@@ -8,7 +8,7 @@
     tools:context=".LogIn">
 
     <ImageView
-        android:id="@+id/AppLogo"
+        android:id="@+id/AppLogoMP"
         android:layout_width="120dp"
         android:layout_height="115dp"
         android:layout_marginTop="72dp"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AppLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/AppLogoMP" />
 
     <ImageView
         android:id="@+id/Adorno"
@@ -76,26 +76,32 @@
         android:layout_height="50dp"
         android:layout_marginStart="144dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
         android:background="#00FFFFFF"
         android:onClick="WebIcon"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Icono"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SobreNosotros"
         app:layout_constraintVertical_bias="0.054"
         app:srcCompat="@drawable/kakugameslogo" />
 
     <ImageButton
-        android:id="@+id/SainnyLogo"
+        android:id="@+id/Icono"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="144dp"
+        android:layout_marginBottom="5dp"
         android:background="#00FFFFFF"
         android:onClick="WebIcon"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/KakugamesLogo"
         app:layout_constraintTop_toBottomOf="@+id/SobreNosotros"
         app:layout_constraintVertical_bias="0.054"
         app:srcCompat="@drawable/sainnylogo" />
