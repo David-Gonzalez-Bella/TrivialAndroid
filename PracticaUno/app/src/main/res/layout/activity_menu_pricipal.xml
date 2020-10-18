@@ -98,6 +98,7 @@
         android:layout_marginTop="108dp"
         android:background="@drawable/salir_boton"
         android:fontFamily="sans-serif"
+        android:onClick="SalirAlerta"
         android:text="X"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

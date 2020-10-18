@@ -20,7 +20,6 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         nombreUsuario = findViewById(R.id.CampoNombre);
-
     }
 
     public void EntrarMenuPricipal(View v){
