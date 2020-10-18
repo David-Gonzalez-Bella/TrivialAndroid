@@ -22,7 +22,7 @@
         android:id="@+id/CampoNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Nombre"
         android:inputType="textPersonName"
@@ -34,16 +34,15 @@
 
     <TextView
         android:id="@+id/Bienvenido"
-        android:layout_width="208dp"
+        android:layout_width="235dp"
         android:layout_height="29dp"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/amita"
-        android:text="BIENVENIDO, INVOCADOR"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif"
+        android:text="Bienvenido, invocador"
         android:textColor="#FADB6A"
         android:textColorHighlight="#000000"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AppLogoMP" />
 
@@ -51,13 +50,13 @@
         android:id="@+id/Adorno"
         android:layout_width="330dp"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Bienvenido"
-        app:srcCompat="@drawable/sainnylogo"
-        tools:srcCompat="@drawable/sainnylogo" />
+        app:srcCompat="@drawable/adorno"
+        tools:srcCompat="@drawable/adorno" />
 
     <ImageButton
         android:id="@+id/BotonEmpezar"
@@ -110,7 +109,7 @@
         android:id="@+id/SobreNosotros"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="136dp"
         android:text="Sobre nosotros:"
         android:textColor="#FFE999"
         app:layout_constraintEnd_toEndOf="parent"
