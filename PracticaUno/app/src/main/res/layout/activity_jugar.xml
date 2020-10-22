@@ -7,66 +7,45 @@
     android:background="@drawable/fondomenuprincipal"
     tools:context=".Jugar">
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="390dp"
+        android:layout_height="637dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.095">
+
+    </FrameLayout>
+
     <Button
         android:id="@+id/salir"
         android:layout_width="52dp"
         android:layout_height="49dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/salir_boton"
         android:fontFamily="sans-serif"
         android:text="X"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Ajustes"
-        app:layout_constraintVertical_bias="0.761" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <LinearLayout
-        android:layout_width="317dp"
-        android:layout_height="199dp"
-        android:layout_marginTop="120dp"
-        android:orientation="vertical"
+    <ImageButton
+        android:id="@+id/botonSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Enunciado">
+        app:layout_constraintHorizontal_bias="0.911"
+        app:layout_constraintStart_toEndOf="@+id/salir"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/abc_vector_test" />
 
-        <RadioButton
-            android:id="@+id/respuesta1"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/respuesta2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/respuesta3"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/respuesta4"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="RadioButton" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/Enunciado"
-        android:layout_width="282dp"
-        android:layout_height="178dp"
-        android:layout_marginTop="124dp"
-        android:text="¿Titulo Pregunta?"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
