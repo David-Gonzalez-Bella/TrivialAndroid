@@ -8,14 +8,15 @@
     tools:context=".Jugar">
 
     <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="390dp"
-        android:layout_height="637dp"
+        android:id="@+id/marcoPregunta"
+        android:layout_width="388dp"
+        android:layout_height="542dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095">
+        app:layout_constraintVertical_bias="0.149">
 
     </FrameLayout>
 
@@ -30,22 +31,23 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/marcoPregunta"
+        app:layout_constraintVertical_bias="0.92" />
 
     <ImageButton
         android:id="@+id/botonSiguiente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="28dp"
+        android:onClick="AvanzarPregunta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.911"
+        app:layout_constraintHorizontal_bias="0.988"
         app:layout_constraintStart_toEndOf="@+id/salir"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/marcoPregunta"
+        app:layout_constraintVertical_bias="0.65999997"
         app:srcCompat="@drawable/abc_vector_test" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
