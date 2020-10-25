@@ -27,6 +27,7 @@
         android:layout_marginBottom="28dp"
         android:background="@drawable/salir_boton"
         android:fontFamily="sans-serif"
+        android:onClick="SalirMenuPrincipalAlerta"
         android:text="X"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

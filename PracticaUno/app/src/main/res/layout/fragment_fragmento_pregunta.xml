@@ -13,10 +13,10 @@
 
         <TextView
             android:id="@+id/enunciado2"
-            android:layout_width="305dp"
-            android:layout_height="100dp"
+            android:layout_width="308dp"
+            android:layout_height="142dp"
             android:layout_marginTop="56dp"
-            android:text="¿Titulo Pregunta?"
+            android:text="Titulo Pregunta"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -27,16 +27,19 @@
             android:id="@+id/linearLayout"
             android:layout_width="317dp"
             android:layout_height="199dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enunciado2">
+            app:layout_constraintTop_toBottomOf="@+id/enunciado2"
+            app:layout_constraintVertical_bias="0.37">
 
             <RadioButton
                 android:id="@+id/respuesta1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:checked="false"
                 android:text="RadioButton" />
 
             <RadioButton
@@ -57,6 +60,7 @@
                 android:layout_height="50dp"
                 android:text="RadioButton" />
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

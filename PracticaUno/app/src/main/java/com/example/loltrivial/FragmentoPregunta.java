@@ -1,14 +1,17 @@
 package com.example.loltrivial;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Debug;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,7 @@ import java.util.List;
  * Use the {@link FragmentoPregunta#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentoPregunta extends Fragment {
+public class FragmentoPregunta extends Fragment{
 
     public ArrayList<Pregunta> preguntas;
     public TextView enunciado;
@@ -58,23 +61,19 @@ public class FragmentoPregunta extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        enunciado= view.findViewById(R.id.enunciado2);
-        r1= view.findViewById(R.id.respuesta1);
-        r2= view.findViewById(R.id.respuesta2);
-        r3= view.findViewById(R.id.respuesta3);
-        r4= view.findViewById(R.id.respuesta4);
 
-        preguntas = ListaPreguntas.INSTANCE.getPreguntas();
-
+        //Actualizar los textos del fragmento al crearlo
         enunciado.setText(preguntas.get(Jugar.preguntaId).getPregunta());
         r1.setText(preguntas.get(Jugar.preguntaId).getOpcion1());
         r2.setText(preguntas.get(Jugar.preguntaId).getOpcion2());
         r3.setText(preguntas.get(Jugar.preguntaId).getOpcion3());
         r4.setText(preguntas.get(Jugar.preguntaId).getOpcion4());
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +83,86 @@ public class FragmentoPregunta extends Fragment {
         }
     }
 
+  //  @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_fragmento_pregunta, container, false);
+//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragmento_pregunta, container, false);
+       View view= inflater.inflate(R.layout.fragment_fragmento_pregunta, container, false);
+
+        //Buscamos los controles cuyo contenido querremos modificar
+        preguntas = ListaPreguntas.INSTANCE.getPreguntas();
+        enunciado = view.findViewById(R.id.enunciado2);
+        r1 = view.findViewById(R.id.respuesta1);
+        r2 = view.findViewById(R.id.respuesta2);
+        r3 = view.findViewById(R.id.respuesta3);
+        r4 = view.findViewById(R.id.respuesta4);
+
+        r1.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+            r2.setChecked(false);
+            r3.setChecked(false);
+            r4.setChecked(false);
+           }
+
+       });
+        r2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r1.setChecked(false);
+                r3.setChecked(false);
+                r4.setChecked(false);
+            }
+
+        });
+        r3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r2.setChecked(false);
+                r1.setChecked(false);
+                r4.setChecked(false);
+            }
+
+        });
+        r4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r1.setChecked(false);
+                r2.setChecked(false);
+                r3.setChecked(false);
+            }
+
+        });
+        return view;
+    }
+//    @Override
+//    public void onClick(View v){
+//
+//        if(v.getId()==R.id.respuesta1){
+//
+//        }
+//    }
+    public void SeleccionarOpcionFragmento(View view) {
+
+//        if(r1.isChecked()){
+//            r1.setChecked(false);
+        //
+//        }
+//        if(r2.isChecked()){
+//            r2.setChecked(false);
+//        }
+//        if(r3.isChecked()){
+//            r3.setChecked(false);
+//        }
+//        if(r4.isChecked()){
+//            r4.setChecked(false);
+//        }
+//    }
     }
 }
