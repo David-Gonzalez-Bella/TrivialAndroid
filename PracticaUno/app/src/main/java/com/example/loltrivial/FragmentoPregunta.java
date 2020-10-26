@@ -23,13 +23,11 @@ import java.util.List;
  */
 public class FragmentoPregunta extends Fragment{
 
-    public ArrayList<Pregunta> preguntas;
     public TextView enunciado;
     public RadioButton r1;
     public RadioButton r2;
     public RadioButton r3;
     public RadioButton r4;
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,11 +65,11 @@ public class FragmentoPregunta extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         //Actualizar los textos del fragmento al crearlo
-        enunciado.setText(preguntas.get(Jugar.preguntaId).getPregunta());
-        r1.setText(preguntas.get(Jugar.preguntaId).getOpcion1());
-        r2.setText(preguntas.get(Jugar.preguntaId).getOpcion2());
-        r3.setText(preguntas.get(Jugar.preguntaId).getOpcion3());
-        r4.setText(preguntas.get(Jugar.preguntaId).getOpcion4());
+        enunciado.setText(Jugar.preguntas.get(Jugar.preguntaId).getPregunta());
+        r1.setText(Jugar.preguntas.get(Jugar.preguntaId).getOpcion1());
+        r2.setText(Jugar.preguntas.get(Jugar.preguntaId).getOpcion2());
+        r3.setText(Jugar.preguntas.get(Jugar.preguntaId).getOpcion3());
+        r4.setText(Jugar.preguntas.get(Jugar.preguntaId).getOpcion4());
     }
 
     @Override
@@ -83,20 +81,13 @@ public class FragmentoPregunta extends Fragment{
         }
     }
 
-  //  @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_fragmento_pregunta, container, false);
-//    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view= inflater.inflate(R.layout.fragment_fragmento_pregunta, container, false);
+       View view = inflater.inflate(R.layout.fragment_fragmento_pregunta, container, false);
 
         //Buscamos los controles cuyo contenido querremos modificar
-        preguntas = ListaPreguntas.INSTANCE.getPreguntas();
         enunciado = view.findViewById(R.id.enunciado2);
         r1 = view.findViewById(R.id.respuesta1);
         r2 = view.findViewById(R.id.respuesta2);
@@ -109,60 +100,40 @@ public class FragmentoPregunta extends Fragment{
             r2.setChecked(false);
             r3.setChecked(false);
             r4.setChecked(false);
+            Jugar.elegida = 1;
            }
 
        });
         r2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                r1.setChecked(false);
-                r3.setChecked(false);
-                r4.setChecked(false);
+            r1.setChecked(false);
+            r3.setChecked(false);
+            r4.setChecked(false);
+            Jugar.elegida = 2;
             }
 
         });
         r3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                r2.setChecked(false);
-                r1.setChecked(false);
-                r4.setChecked(false);
+            r2.setChecked(false);
+            r1.setChecked(false);
+            r4.setChecked(false);
+            Jugar.elegida = 3;
             }
 
         });
         r4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                r1.setChecked(false);
-                r2.setChecked(false);
-                r3.setChecked(false);
+            r1.setChecked(false);
+            r2.setChecked(false);
+            r3.setChecked(false);
+            Jugar.elegida = 4;
             }
 
         });
         return view;
-    }
-//    @Override
-//    public void onClick(View v){
-//
-//        if(v.getId()==R.id.respuesta1){
-//
-//        }
-//    }
-    public void SeleccionarOpcionFragmento(View view) {
-
-//        if(r1.isChecked()){
-//            r1.setChecked(false);
-        //
-//        }
-//        if(r2.isChecked()){
-//            r2.setChecked(false);
-//        }
-//        if(r3.isChecked()){
-//            r3.setChecked(false);
-//        }
-//        if(r4.isChecked()){
-//            r4.setChecked(false);
-//        }
-//    }
     }
 }

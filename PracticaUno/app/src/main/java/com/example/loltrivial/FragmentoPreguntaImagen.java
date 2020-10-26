@@ -1,5 +1,6 @@
 package com.example.loltrivial;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +18,12 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class FragmentoPreguntaImagen extends Fragment {
+
+    public TextView enunciado;
+    public ImageButton r1;
+    public ImageButton r2;
+    public ImageButton r3;
+    public ImageButton r4;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,6 +57,18 @@ public class FragmentoPreguntaImagen extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //Actualizar los textos del fragmento al crearlo
+        enunciado.setText(Jugar.preguntasImagen.get(Jugar.preguntaImagenId).getPregunta());
+        r1.setImageResource(Jugar.preguntasImagen.get(Jugar.preguntaImagenId).getOpcion1());
+        r2.setImageResource(Jugar.preguntasImagen.get(Jugar.preguntaImagenId).getOpcion2());
+        r3.setImageResource(Jugar.preguntasImagen.get(Jugar.preguntaImagenId).getOpcion3());
+        r4.setImageResource(Jugar.preguntasImagen.get(Jugar.preguntaImagenId).getOpcion4());
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -59,6 +81,56 @@ public class FragmentoPreguntaImagen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragmento_pregunta_imagen, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragmento_pregunta_imagen, container, false);
+        //Buscamos los controles cuyo contenido querremos modificar
+        enunciado = view.findViewById(R.id.enunciado2);
+        r1 = view.findViewById(R.id.respuesta1);
+        r2 = view.findViewById(R.id.respuesta2);
+        r3 = view.findViewById(R.id.respuesta3);
+        r4 = view.findViewById(R.id.respuesta4);
+
+        r1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r1.setColorFilter(Color.argb(35, 0, 142, 255)); // Selected tint
+                r2.setColorFilter(Color.argb(0, 0, 142, 255));
+                r3.setColorFilter(Color.argb(0, 0, 142, 255));
+                r4.setColorFilter(Color.argb(0, 0, 142, 255));
+                Jugar.elegida = 1;
+            }
+        });
+        r2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r1.setColorFilter(Color.argb(0, 0, 142, 255));
+                r2.setColorFilter(Color.argb(35, 0, 142, 255));
+                r3.setColorFilter(Color.argb(0, 0, 142, 255));
+                r4.setColorFilter(Color.argb(0, 0, 142, 255));
+                Jugar.elegida = 2;
+            }
+
+        });
+        r3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r1.setColorFilter(Color.argb(0, 0, 142, 255));
+                r2.setColorFilter(Color.argb(0, 0, 142, 255));
+                r3.setColorFilter(Color.argb(35, 0, 142, 255));
+                r4.setColorFilter(Color.argb(0, 0, 142, 255));
+                Jugar.elegida = 3;
+            }
+
+        });
+        r4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r1.setColorFilter(Color.argb(0, 0, 142, 255));
+                r2.setColorFilter(Color.argb(0, 0, 142, 255));
+                r3.setColorFilter(Color.argb(0, 0, 142, 255));
+                r4.setColorFilter(Color.argb(35, 0, 142, 255));
+                Jugar.elegida = 4;
+            }
+        });
+        return view;
     }
 }

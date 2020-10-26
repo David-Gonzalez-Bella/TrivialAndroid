@@ -9,7 +9,8 @@
         android:roundIcon="@drawable/applogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Ajustes"></activity>
+        <activity android:name=".Resultados"></activity>
+        <activity android:name=".Ajustes" />
         <activity android:name=".Categoria" />
         <activity android:name=".Jugar" />
         <activity android:name=".MenuPricipal" />

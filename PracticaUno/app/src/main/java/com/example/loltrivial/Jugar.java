@@ -7,53 +7,69 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class Jugar extends AppCompatActivity {
 
-
-    // public ArrayList<PreguntaImagen> preguntasImagen;
-    public static int preguntaId=0;
+    public static ArrayList<Pregunta> preguntas;
+    public static ArrayList<PreguntaImagen> preguntasImagen;
+    public static int preguntaId = -1;
+    public static int preguntaImagenId = -1;
+    public static int elegida = 0;
+    public static int acertadas = 0;
     FragmentoPregunta preguntaFragmento;
+    FragmentoPreguntaImagen preguntaImagenFragmento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jugar);
+
+        preguntas = ListaPreguntas.INSTANCE.getPreguntas();
+        preguntasImagen = ListaPreguntasImagen.INSTANCE.getPreguntasImagen();
+        preguntaId++;
         CrearFragmentoTexto();
-
-
-// fragmentNumber = 2;
-
-
-//
-//        preguntasImagen = ListaPreguntasImagen.INSTANCE.getPreguntasImagen();
-//
-//        enunciado.setText(preguntasImagen.get(0).getPregunta());
-//        r1.setText(preguntasImagen.get(0).getOpcion1());
-//        r2.setText(preguntasImagen.get(0).getOpcion2());
-//        r3.setText(preguntasImagen.get(0).getOpcion3());
-//        r4.setText(preguntasImagen.get(0).getOpcion4());
-
-
-//        enunciado = findViewById(R.id.Enunciado);
-//        r1 = findViewById(R.id.respuesta1);
-//        r2 = findViewById(R.id.respuesta2);
-//        r3 = findViewById(R.id.respuesta3);
-//        r4 = findViewById(R.id.respuesta4);
-//
-//
     }
 
     public void AvanzarPregunta(View v){
-        if(!preguntaFragmento.r1.isChecked() && !preguntaFragmento.r2.isChecked() && !preguntaFragmento.r3.isChecked() && !preguntaFragmento.r4.isChecked()){
-            Toast.makeText(this,"¡Selecciona una opción!",Toast.LENGTH_SHORT).show();
+        //Determinamos el ultimo fragmento que se añadio a la pila (el fragmento actual)
+        int indice = this.getSupportFragmentManager().getBackStackEntryCount() - 1;
+        FragmentManager.BackStackEntry fragmentoActual = this.getSupportFragmentManager().getBackStackEntryAt(indice);//(FragmentManager.BackStackEntry) getFragmentManager().getBackStackEntryAt(indice);
+
+        //En funcion del tipo de fragmento, crearemos uno u otro a continuacion
+        if(fragmentoActual.getName() ==  "preguntaTexto"){
+            if(elegida == 0){
+                Toast.makeText(this,"¡Selecciona una opción!",Toast.LENGTH_SHORT).show();
+            }else {
+                ComprobarCorrecta();
+                if(preguntaImagenId < 4){
+                    preguntaImagenId++;
+                    CrearFragmentoImagen();
+                    elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                }
+            }
         }
-        else {
-            preguntaId++;
-            CrearFragmentoTexto();
+        else{
+            if(elegida == 0){
+                Toast.makeText(this,"¡Selecciona una imagen!",Toast.LENGTH_SHORT).show();
+            }else {
+                ComprobarCorrectaImagen();
+                if(preguntaId < 4){
+                    preguntaId++;
+                    CrearFragmentoTexto();
+                    elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                }else{
+                    Intent menuResultados = new Intent(this, Resultados.class); //Vamos a la pantalla de resultados
+                    startActivity(menuResultados);
+                }
+            }
         }
     }
 
@@ -62,6 +78,14 @@ public class Jugar extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         preguntaFragmento = new FragmentoPregunta();
         fragmentTransaction.replace(R.id.marcoPregunta, preguntaFragmento).addToBackStack("preguntaTexto");
+        fragmentTransaction.commit();
+    }
+
+    private void CrearFragmentoImagen(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        preguntaImagenFragmento = new FragmentoPreguntaImagen();
+        fragmentTransaction.replace(R.id.marcoPregunta, preguntaImagenFragmento).addToBackStack("preguntaImagen");
         fragmentTransaction.commit();
     }
 
@@ -89,5 +113,15 @@ public class Jugar extends AppCompatActivity {
         cajaAlerta.show();
     }
 
+    public void ComprobarCorrecta(){
+        if(preguntas.get(preguntaId).getCorrecta() == elegida){
+            acertadas++;
+        }
+    }
 
+    public void ComprobarCorrectaImagen(){
+        if(preguntasImagen.get(preguntaImagenId).getCorrecta() == elegida){
+            acertadas++;
+        }
+    }
 }
