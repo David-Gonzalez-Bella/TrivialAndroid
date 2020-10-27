@@ -20,10 +20,10 @@ public class Jugar extends AppCompatActivity {
 
     public static ArrayList<Pregunta> preguntas;
     public static ArrayList<PreguntaImagen> preguntasImagen;
-    public static int preguntaId = -1;
-    public static int preguntaImagenId = -1;
-    public static int elegida = 0;
-    public static int acertadas = 0;
+    public static int preguntaId;
+    public static int preguntaImagenId;
+    public static int elegida;
+    public static int acertadas;
     FragmentoPregunta preguntaFragmento;
     FragmentoPreguntaImagen preguntaImagenFragmento;
 
@@ -34,7 +34,11 @@ public class Jugar extends AppCompatActivity {
 
         preguntas = ListaPreguntas.INSTANCE.getPreguntas();
         preguntasImagen = ListaPreguntasImagen.INSTANCE.getPreguntasImagen();
-        preguntaId++;
+        preguntaId= 0;
+        preguntaImagenId = -1;
+        elegida = 0;
+        acertadas = 0;
+
         CrearFragmentoTexto();
     }
 
@@ -66,6 +70,7 @@ public class Jugar extends AppCompatActivity {
                     CrearFragmentoTexto();
                     elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
                 }else{
+                    finish();
                     Intent menuResultados = new Intent(this, Resultados.class); //Vamos a la pantalla de resultados
                     startActivity(menuResultados);
                 }
@@ -88,17 +93,21 @@ public class Jugar extends AppCompatActivity {
         fragmentTransaction.replace(R.id.marcoPregunta, preguntaImagenFragmento).addToBackStack("preguntaImagen");
         fragmentTransaction.commit();
     }
-
+    private void IrMenuPrincipal(){
+        finish();
+        Intent menuPrincipal = new Intent(this, MenuPricipal.class);
+        startActivity(menuPrincipal);
+    }
     public void SalirMenuPrincipalAlerta(View v){
         //Crear el objeto alerta
         AlertDialog.Builder alerta = new AlertDialog.Builder(this); //Creamos una alerta
-        alerta.setTitle("¿Quieres volver al menu principal?")
+        alerta.setTitle("¿Quieres salir?")
                 .setMessage("Perderás el progreso actual")
                 .setCancelable(false)
                 .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        IrMenuPrincipal();
                     }
                 })
                 .setNegativeButton("No",  new DialogInterface.OnClickListener() {

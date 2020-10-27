@@ -28,22 +28,28 @@ public class MenuPricipal extends AppCompatActivity implements View.OnClickListe
     }
 
     public void EntrarPartida(View v){
-
+        finish();
         Intent menuJugar = new Intent(this, Jugar.class); //Arrancar nueva actividad
         startActivity(menuJugar);
     }
 
     public void EntrarCategoria(View v){
-
+        finish();
         Intent menuCategoria = new Intent(this, Categoria.class); //Arrancar nueva actividad
         startActivity(menuCategoria);
     }
 
     public void EntrarAjustes(View v){
+        finish();
         Intent menuAjustes = new Intent(this, Ajustes.class); //Arrancar nueva actividad
         startActivity(menuAjustes);
     }
 
+    private void IrPantallaLogin(){
+        finish();
+        Intent pantallaLog = new Intent(this, LogIn.class);
+        startActivity(pantallaLog);
+    }
     public void SalirAlerta(View v){
         //Crear el objeto alerta
         AlertDialog.Builder alerta = new AlertDialog.Builder(this); //Creamos una alerta
@@ -53,7 +59,7 @@ public class MenuPricipal extends AppCompatActivity implements View.OnClickListe
                 .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        IrPantallaLogin();
                     }
                 })
                 .setNegativeButton("No",  new DialogInterface.OnClickListener() {
