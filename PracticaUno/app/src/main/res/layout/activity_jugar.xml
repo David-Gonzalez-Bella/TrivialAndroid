@@ -7,16 +7,28 @@
     android:background="@drawable/fondomenuprincipal"
     tools:context=".Jugar">
 
-    <FrameLayout
-        android:id="@+id/marcoPregunta"
-        android:layout_width="388dp"
-        android:layout_height="542dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ProgressBar
+        android:id="@+id/tiempo"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="309dp"
+        android:layout_height="9dp"
+        android:max="100"
+        android:progress="0"
+        app:layout_constraintBottom_toTopOf="@+id/marcoPregunta"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.149">
+        app:layout_constraintVertical_bias="1.0" />
+
+    <FrameLayout
+        android:id="@+id/marcoPregunta"
+        android:layout_width="385dp"
+        android:layout_height="521dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18">
 
     </FrameLayout>
 
@@ -32,23 +44,38 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/marcoPregunta"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintVertical_bias="0.916" />
 
     <ImageButton
         android:id="@+id/botonSiguiente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="61dp"
+        android:layout_height="54dp"
         android:layout_marginEnd="28dp"
         android:onClick="AvanzarPregunta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.988"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/salir"
         app:layout_constraintTop_toBottomOf="@+id/marcoPregunta"
-        app:layout_constraintVertical_bias="0.65999997"
+        app:layout_constraintVertical_bias="0.672"
         app:srcCompat="@drawable/abc_vector_test" />
+
+    <TextView
+        android:id="@+id/contadorPreguntas"
+        android:layout_width="129dp"
+        android:layout_height="44dp"
+        android:background="@drawable/redes_boton"
+        android:text="5/10"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/botonSiguiente"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toEndOf="@+id/salir"
+        app:layout_constraintTop_toBottomOf="@+id/marcoPregunta"
+        app:layout_constraintVertical_bias="0.102" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

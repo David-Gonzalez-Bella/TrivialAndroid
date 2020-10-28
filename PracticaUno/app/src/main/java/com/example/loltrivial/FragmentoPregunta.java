@@ -1,20 +1,17 @@
 package com.example.loltrivial;
 
-import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Debug;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,9 +97,9 @@ public class FragmentoPregunta extends Fragment{
             r2.setChecked(false);
             r3.setChecked(false);
             r4.setChecked(false);
+            ReproducirSonido();
             Jugar.elegida = 1;
            }
-
        });
         r2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +107,9 @@ public class FragmentoPregunta extends Fragment{
             r1.setChecked(false);
             r3.setChecked(false);
             r4.setChecked(false);
+            ReproducirSonido();
             Jugar.elegida = 2;
             }
-
         });
         r3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,9 +117,9 @@ public class FragmentoPregunta extends Fragment{
             r2.setChecked(false);
             r1.setChecked(false);
             r4.setChecked(false);
+            ReproducirSonido();
             Jugar.elegida = 3;
             }
-
         });
         r4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,10 +127,18 @@ public class FragmentoPregunta extends Fragment{
             r1.setChecked(false);
             r2.setChecked(false);
             r3.setChecked(false);
+            ReproducirSonido();
             Jugar.elegida = 4;
             }
-
         });
         return view;
+    }
+
+    public void ReproducirSonido(){
+        if(Jugar.elegirRespuesta_snd.isPlaying()){
+            Jugar.elegirRespuesta_snd.stop();
+            Jugar.elegirRespuesta_snd = MediaPlayer.create(getActivity(), R.raw.elegir_respuesta);
+        }
+        Jugar.elegirRespuesta_snd.start();
     }
 }

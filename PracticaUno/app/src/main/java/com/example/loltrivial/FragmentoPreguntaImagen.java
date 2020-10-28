@@ -1,6 +1,7 @@
 package com.example.loltrivial;
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -96,6 +97,7 @@ public class FragmentoPreguntaImagen extends Fragment {
                 r2.setColorFilter(Color.argb(0, 0, 142, 255));
                 r3.setColorFilter(Color.argb(0, 0, 142, 255));
                 r4.setColorFilter(Color.argb(0, 0, 142, 255));
+                ReproducirSonido();
                 Jugar.elegida = 1;
             }
         });
@@ -106,6 +108,7 @@ public class FragmentoPreguntaImagen extends Fragment {
                 r2.setColorFilter(Color.argb(35, 0, 142, 255));
                 r3.setColorFilter(Color.argb(0, 0, 142, 255));
                 r4.setColorFilter(Color.argb(0, 0, 142, 255));
+                ReproducirSonido();
                 Jugar.elegida = 2;
             }
 
@@ -117,6 +120,7 @@ public class FragmentoPreguntaImagen extends Fragment {
                 r2.setColorFilter(Color.argb(0, 0, 142, 255));
                 r3.setColorFilter(Color.argb(35, 0, 142, 255));
                 r4.setColorFilter(Color.argb(0, 0, 142, 255));
+                ReproducirSonido();
                 Jugar.elegida = 3;
             }
 
@@ -128,9 +132,18 @@ public class FragmentoPreguntaImagen extends Fragment {
                 r2.setColorFilter(Color.argb(0, 0, 142, 255));
                 r3.setColorFilter(Color.argb(0, 0, 142, 255));
                 r4.setColorFilter(Color.argb(35, 0, 142, 255));
+                ReproducirSonido();
                 Jugar.elegida = 4;
             }
         });
         return view;
+    }
+
+    public void ReproducirSonido(){
+        if(Jugar.elegirRespuesta_snd.isPlaying()){
+            Jugar.elegirRespuesta_snd.stop();
+            Jugar.elegirRespuesta_snd = MediaPlayer.create(getActivity(), R.raw.elegir_respuesta);
+        }
+        Jugar.elegirRespuesta_snd.start();
     }
 }
