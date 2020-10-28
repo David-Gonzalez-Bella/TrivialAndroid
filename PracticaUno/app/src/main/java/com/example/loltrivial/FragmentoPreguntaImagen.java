@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
@@ -84,7 +83,7 @@ public class FragmentoPreguntaImagen extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragmento_pregunta_imagen, container, false);
         //Buscamos los controles cuyo contenido querremos modificar
-        enunciado = view.findViewById(R.id.enunciado2);
+        enunciado = view.findViewById(R.id.enunciado3);
         r1 = view.findViewById(R.id.respuesta1);
         r2 = view.findViewById(R.id.respuesta2);
         r3 = view.findViewById(R.id.respuesta3);

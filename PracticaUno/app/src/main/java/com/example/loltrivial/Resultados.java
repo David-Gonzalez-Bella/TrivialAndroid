@@ -25,6 +25,7 @@ public class Resultados extends AppCompatActivity {
     }
 
     public void EntrarMenuP(View v){
+        finish();
         Intent menuPrincipal = new Intent(this, MenuPricipal.class); //Arrancar nueva actividad
         startActivity(menuPrincipal);
     }

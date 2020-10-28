@@ -18,7 +18,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/Calculadora" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/PracticaUno" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -34,10 +34,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1603473540155">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1603897646555">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603473540155" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603897646555" />
     <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1603473527386">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

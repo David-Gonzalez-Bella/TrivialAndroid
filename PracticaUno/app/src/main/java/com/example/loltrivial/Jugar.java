@@ -2,15 +2,12 @@ package com.example.loltrivial;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -24,8 +21,10 @@ public class Jugar extends AppCompatActivity {
 
     public static ArrayList<Pregunta> preguntas;
     public static ArrayList<PreguntaImagen> preguntasImagen;
+    public static ArrayList<PreguntaHibrida> preguntasMixtas;
     public static int preguntaId;
     public static int preguntaImagenId;
+    public static int preguntaMixtaId;
     public static int elegida;
     public static int acertadas;
     public int preguntaActual;
@@ -35,6 +34,7 @@ public class Jugar extends AppCompatActivity {
     public static MediaPlayer elegirRespuesta_snd;
     FragmentoPregunta preguntaFragmento;
     FragmentoPreguntaImagen preguntaImagenFragmento;
+    FragmentoPreguntaMixta preguntaMixtaFragmento;
 
     public ProgressBar barraTiempo;
     public CountDownTimer cuentaAtras;
@@ -52,18 +52,25 @@ public class Jugar extends AppCompatActivity {
         //Inicializar
         preguntas = ListaPreguntas.INSTANCE.getPreguntas();
         preguntasImagen = ListaPreguntasImagen.INSTANCE.getPreguntasImagen();
+        preguntasMixtas = ListaPreguntasHibridas.INSTANCE.getPreguntasHibridas();
         preguntaId= 0;
         preguntaImagenId = -1;
+        preguntaMixtaId = -1;
         elegida = 0;
         acertadas = 0;
         preguntaActual = 1;
         elegirRespuesta_snd = MediaPlayer.create(this, R.raw.elegir_respuesta);
-        totalPreguntas = preguntas.size() + preguntasImagen.size();
+        totalPreguntas = preguntas.size() + preguntasImagen.size() + preguntasMixtas.size();
         contadorPreguntas.setText(preguntaActual + "/" + totalPreguntas);
 
         //Llamadas a metodos iniciales
         CrearBarraTiempo();
         CrearFragmentoTexto();
+    }
+
+    @Override
+    public void onBackPressed() {
+        SalirMenuPrincipalAlerta(null);
     }
 
     public void AvanzarPregunta(View v){
@@ -72,40 +79,92 @@ public class Jugar extends AppCompatActivity {
         FragmentManager.BackStackEntry fragmentoActual = this.getSupportFragmentManager().getBackStackEntryAt(indice);
 
         //En funcion del tipo de fragmento, crearemos uno u otro a continuacion
-        if(fragmentoActual.getName() ==  "preguntaTexto"){
-            if(v!= null && elegida == 0){
-                Toast.makeText(this,"¡Selecciona una opción!",Toast.LENGTH_SHORT).show();
-            }else {
-                ComprobarCorrecta();
-                if(preguntaImagenId < 4){
-                    preguntaImagenId++;
-                    if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
-                    CrearFragmentoImagen();
-                    CrearBarraTiempo();
-                    contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
-                    elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+        switch (fragmentoActual.getName()){
+            case "preguntaTexto":
+                if(v!= null && elegida == 0){
+                    Toast.makeText(this,"¡Selecciona una opción!",Toast.LENGTH_SHORT).show();
+                }else {
+                    ComprobarCorrecta();
+                    if(preguntaImagenId < 4){
+                        preguntaImagenId++;
+                        if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
+                        CrearFragmentoImagen();
+                        CrearBarraTiempo();
+                        contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
+                        elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                    }
                 }
-            }
-        }
-        else{
-            if(v!= null && elegida == 0){
-                Toast.makeText(this,"¡Selecciona una imagen!",Toast.LENGTH_SHORT).show();
-            }else {
-                ComprobarCorrectaImagen();
-                if(preguntaId < 4){
-                    preguntaId++;
-                    if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
-                    CrearFragmentoTexto();
-                    CrearBarraTiempo();
-                    contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
-                    elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
-                }else{
-                    finish();
-                    Intent menuResultados = new Intent(this, Resultados.class); //Vamos a la pantalla de resultados
-                    startActivity(menuResultados);
+                break;
+            case "preguntaImagen":
+                if(v!= null && elegida == 0){
+                    Toast.makeText(this,"¡Selecciona una imagen!",Toast.LENGTH_SHORT).show();
+                }else {
+                    ComprobarCorrectaImagen();
+                    if(preguntaMixtaId < 4){
+                        preguntaMixtaId++;
+                        if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
+                        CrearFragmentoHibrido();
+                        CrearBarraTiempo();
+                        contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
+                        elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                    }
                 }
-            }
+                break;
+            case "preguntaMixta":
+                if(v!= null && elegida == 0){
+                    Toast.makeText(this,"¡Selecciona una opción!",Toast.LENGTH_SHORT).show();
+                }else {
+                    ComprobarCorrectaHibrida();
+                    if(preguntaId < 4){
+                        preguntaId++;
+                        if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
+                        CrearFragmentoTexto();
+                        CrearBarraTiempo();
+                        contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
+                        elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                    }else{
+                        finish();
+                        Intent menuResultados = new Intent(this, Resultados.class); //Vamos a la pantalla de resultados
+                        startActivity(menuResultados);
+                    }
+                }
+                break;
         }
+
+//        if(fragmentoActual.getName() ==  "preguntaTexto"){
+//            if(v!= null && elegida == 0){
+//                Toast.makeText(this,"¡Selecciona una opción!",Toast.LENGTH_SHORT).show();
+//            }else {
+//                ComprobarCorrecta();
+//                if(preguntaImagenId < 4){
+//                    preguntaImagenId++;
+//                    if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
+//                    CrearFragmentoImagen();
+//                    CrearBarraTiempo();
+//                    contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
+//                    elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+//                }
+//            }
+//        }
+//        else{
+//            if(v!= null && elegida == 0){
+//                Toast.makeText(this,"¡Selecciona una imagen!",Toast.LENGTH_SHORT).show();
+//            }else {
+//                ComprobarCorrectaImagen();
+//                if(preguntaId < 4){
+//                    preguntaId++;
+//                    if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
+//                    CrearFragmentoTexto();
+//                    CrearBarraTiempo();
+//                    contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
+//                    elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+//                }else{
+//                    finish();
+//                    Intent menuResultados = new Intent(this, Resultados.class); //Vamos a la pantalla de resultados
+//                    startActivity(menuResultados);
+//                }
+//            }
+//        }
     }
 
     private void CrearFragmentoTexto(){
@@ -123,6 +182,15 @@ public class Jugar extends AppCompatActivity {
         fragmentTransaction.replace(R.id.marcoPregunta, preguntaImagenFragmento).addToBackStack("preguntaImagen");
         fragmentTransaction.commit();
     }
+
+    private void CrearFragmentoHibrido(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        preguntaMixtaFragmento = new FragmentoPreguntaMixta();
+        fragmentTransaction.replace(R.id.marcoPregunta, preguntaMixtaFragmento).addToBackStack("preguntaMixta");
+        fragmentTransaction.commit();
+    }
+
     private void IrMenuPrincipal(){
         if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
         finish();
@@ -161,6 +229,12 @@ public class Jugar extends AppCompatActivity {
 
     public void ComprobarCorrectaImagen(){
         if(preguntasImagen.get(preguntaImagenId).getCorrecta() == elegida){
+            acertadas++;
+        }
+    }
+
+    public void ComprobarCorrectaHibrida(){
+        if(preguntasMixtas.get(preguntaMixtaId).getCorrecta() == elegida){
             acertadas++;
         }
     }
