@@ -1,7 +1,10 @@
 package com.example.loltrivial;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +25,10 @@ public class LogIn extends AppCompatActivity {
         nombreUsuario = findViewById(R.id.CampoNombre);
     }
 
+    public void onBackPressed() {
+        SalirAppAlerta(null);
+    }
+
     public void EntrarMenuPricipal(View v){
         if(nombreUsuario.getText().toString().isEmpty()){
             Toast.makeText(this,"Nombre vacío",Toast.LENGTH_SHORT).show();
@@ -31,7 +38,9 @@ public class LogIn extends AppCompatActivity {
             return;
         }
         Intent menuPrincipal = new Intent(this, MenuPricipal.class); //Arrancar nueva actividad
+        menuPrincipal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(menuPrincipal);
+        finish();
     }
 
     public void WebIcon(View v){
@@ -43,5 +52,28 @@ public class LogIn extends AppCompatActivity {
         }
         Intent web = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(web);
+    }
+
+    public void SalirAppAlerta(View v){
+        //Crear el objeto alerta
+        AlertDialog.Builder alerta = new AlertDialog.Builder(this); //Creamos una alerta
+        alerta.setTitle("¿Quieres salir de la aplicación?")
+                .setCancelable(false)
+                .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No",  new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        //Crear la caja de alerta
+        AlertDialog cajaAlerta  = alerta.create();
+        cajaAlerta.show();
     }
 }

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MenuPricipal extends AppCompatActivity implements View.OnClickListener{
+public class MenuPricipal extends AppCompatActivity{
     public TextView nickUsuario;
 
     @Override
@@ -23,32 +23,36 @@ public class MenuPricipal extends AppCompatActivity implements View.OnClickListe
         nickUsuario.setPaintFlags(0);
     }
 
-    public void onClick(View v){
-
+    public void onBackPressed() {
+        SalirAlerta(null);
     }
 
     public void EntrarPartida(View v){
-        finish();
         Intent menuJugar = new Intent(this, Jugar.class); //Arrancar nueva actividad
+        menuJugar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(menuJugar);
+        finish();
     }
 
     public void EntrarCategoria(View v){
-        finish();
         Intent menuCategoria = new Intent(this, Categoria.class); //Arrancar nueva actividad
+        menuCategoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(menuCategoria);
+        finish();
     }
 
     public void EntrarAjustes(View v){
-        finish();
         Intent menuAjustes = new Intent(this, Ajustes.class); //Arrancar nueva actividad
+        menuAjustes.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(menuAjustes);
+        finish();
     }
 
     private void IrPantallaLogin(){
-        finish();
         Intent pantallaLog = new Intent(this, LogIn.class);
+        pantallaLog.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(pantallaLog);
+        finish();
     }
     public void SalirAlerta(View v){
         //Crear el objeto alerta

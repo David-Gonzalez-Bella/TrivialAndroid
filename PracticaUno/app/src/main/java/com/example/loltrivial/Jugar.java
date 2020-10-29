@@ -30,6 +30,7 @@ public class Jugar extends AppCompatActivity {
     public int preguntaActual;
     public int totalPreguntas;
     public boolean cuentaAtrasActiva;
+    private boolean correcta;
     public TextView contadorPreguntas;
     public static MediaPlayer elegirRespuesta_snd;
     FragmentoPregunta preguntaFragmento;
@@ -59,6 +60,7 @@ public class Jugar extends AppCompatActivity {
         elegida = 0;
         acertadas = 0;
         preguntaActual = 1;
+        correcta = false;
         elegirRespuesta_snd = MediaPlayer.create(this, R.raw.elegir_respuesta);
         totalPreguntas = preguntas.size() + preguntasImagen.size() + preguntasMixtas.size();
         contadorPreguntas.setText(preguntaActual + "/" + totalPreguntas);
@@ -88,10 +90,14 @@ public class Jugar extends AppCompatActivity {
                     if(preguntaImagenId < 4){
                         preguntaImagenId++;
                         if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
-                        CrearFragmentoImagen();
-                        CrearBarraTiempo();
-                        contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
-                        elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                        if(barraTiempo.getProgress() != 0){
+                            AlertaValidacion(fragmentoActual.getName());
+                        }else {
+                            CrearFragmentoImagen();
+                            CrearBarraTiempo();
+                            contadorPreguntas.setText(++preguntaActual + "/" + totalPreguntas);
+                            //elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                        }
                     }
                 }
                 break;
@@ -103,10 +109,14 @@ public class Jugar extends AppCompatActivity {
                     if(preguntaMixtaId < 4){
                         preguntaMixtaId++;
                         if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
-                        CrearFragmentoHibrido();
-                        CrearBarraTiempo();
-                        contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
-                        elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                        if(barraTiempo.getProgress() != 0){
+                            AlertaValidacion(fragmentoActual.getName());
+                        }else {
+                            CrearFragmentoHibrido();
+                            CrearBarraTiempo();
+                            contadorPreguntas.setText(++preguntaActual + "/" + totalPreguntas);
+                            //elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                        }
                     }
                 }
                 break;
@@ -118,53 +128,25 @@ public class Jugar extends AppCompatActivity {
                     if(preguntaId < 4){
                         preguntaId++;
                         if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
-                        CrearFragmentoTexto();
-                        CrearBarraTiempo();
-                        contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
-                        elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                        if(barraTiempo.getProgress() != 0){
+                            AlertaValidacion(fragmentoActual.getName());
+                        }else {
+                            CrearFragmentoTexto();
+                            CrearBarraTiempo();
+                            contadorPreguntas.setText(++preguntaActual + "/" + totalPreguntas);
+                            //elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                        }
                     }else{
-                        finish();
                         Intent menuResultados = new Intent(this, Resultados.class); //Vamos a la pantalla de resultados
+                        menuResultados.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(menuResultados);
+                        finish();
                     }
                 }
                 break;
         }
-
-//        if(fragmentoActual.getName() ==  "preguntaTexto"){
-//            if(v!= null && elegida == 0){
-//                Toast.makeText(this,"¡Selecciona una opción!",Toast.LENGTH_SHORT).show();
-//            }else {
-//                ComprobarCorrecta();
-//                if(preguntaImagenId < 4){
-//                    preguntaImagenId++;
-//                    if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
-//                    CrearFragmentoImagen();
-//                    CrearBarraTiempo();
-//                    contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
-//                    elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
-//                }
-//            }
-//        }
-//        else{
-//            if(v!= null && elegida == 0){
-//                Toast.makeText(this,"¡Selecciona una imagen!",Toast.LENGTH_SHORT).show();
-//            }else {
-//                ComprobarCorrectaImagen();
-//                if(preguntaId < 4){
-//                    preguntaId++;
-//                    if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
-//                    CrearFragmentoTexto();
-//                    CrearBarraTiempo();
-//                    contadorPreguntas.setText(++preguntaActual  + "/" + totalPreguntas);
-//                    elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
-//                }else{
-//                    finish();
-//                    Intent menuResultados = new Intent(this, Resultados.class); //Vamos a la pantalla de resultados
-//                    startActivity(menuResultados);
-//                }
-//            }
-//        }
+        elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+        correcta = false;
     }
 
     private void CrearFragmentoTexto(){
@@ -193,10 +175,12 @@ public class Jugar extends AppCompatActivity {
 
     private void IrMenuPrincipal(){
         if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
-        finish();
         Intent menuPrincipal = new Intent(this, MenuPricipal.class);
+        menuPrincipal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(menuPrincipal);
+        finish();
     }
+
     public void SalirMenuPrincipalAlerta(View v){
         //Crear el objeto alerta
         AlertDialog.Builder alerta = new AlertDialog.Builder(this); //Creamos una alerta
@@ -224,18 +208,21 @@ public class Jugar extends AppCompatActivity {
     public void ComprobarCorrecta(){
         if(preguntas.get(preguntaId).getCorrecta() == elegida){
             acertadas++;
+            correcta = true;
         }
     }
 
     public void ComprobarCorrectaImagen(){
         if(preguntasImagen.get(preguntaImagenId).getCorrecta() == elegida){
             acertadas++;
+            correcta = true;
         }
     }
 
     public void ComprobarCorrectaHibrida(){
         if(preguntasMixtas.get(preguntaMixtaId).getCorrecta() == elegida){
             acertadas++;
+            correcta = true;
         }
     }
 
@@ -263,12 +250,51 @@ public class Jugar extends AppCompatActivity {
         cuentaAtrasActiva = true;
     }
 
+    public void AlertaValidacion(final String nombre){
+        //Crear el objeto alert
+        AlertDialog.Builder alerta = new AlertDialog.Builder(this); //Creamos una alerta
+        if(correcta){
+            alerta.setTitle("¡Respuesta correcta!");
+        }else{
+            alerta.setTitle("Respuesta incorrecta...");
+        }
+        alerta.setCancelable(false)
+                .setPositiveButton("Ir a la siguiente pregunta",  new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch(nombre){
+                            case"preguntaTexto":
+                                CrearFragmentoImagen();
+                                break;
+                            case"preguntaImagen":
+                                CrearFragmentoHibrido();
+                                break;
+                            case"preguntaMixta":
+                                CrearFragmentoTexto();
+                                break;
+                        }
+                        CrearBarraTiempo();
+                        contadorPreguntas.setText(++preguntaActual + "/" + totalPreguntas);
+                        elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
+                    }
+                });
+
+        //Crear la caja de alerta
+        AlertDialog cajaAlerta  = alerta.create();
+        cajaAlerta.show();
+    }
+
     public void AlertaFinDeTiempo(){
         //Crear el objeto alerta
         AlertDialog.Builder alerta = new AlertDialog.Builder(this); //Creamos una alerta
-        alerta.setTitle("¡Se acabó el tiempo!")
-                //.setMessage("")
-                .setCancelable(false)
+        alerta.setTitle("¡Se acabó el tiempo!");
+
+        if(correcta){
+            alerta.setMessage("¡Respuesta correcta!");
+        }else{
+            alerta.setMessage("Respuesta incorrecta...");
+        }
+                alerta.setCancelable(false)
                 .setPositiveButton("Ir a la siguiente pregunta",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

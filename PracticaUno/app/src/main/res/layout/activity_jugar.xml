@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondomenuprincipal"
+    android:background="@drawable/pantallajuego"
     tools:context=".Jugar">
 
     <ProgressBar
@@ -47,21 +47,24 @@
         app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/marcoPregunta"
-        app:layout_constraintVertical_bias="0.916" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/botonSiguiente"
-        android:layout_width="61dp"
-        android:layout_height="54dp"
+        android:layout_width="63dp"
+        android:layout_height="43dp"
         android:layout_marginEnd="28dp"
+        android:layout_marginBottom="28dp"
+        android:background="#00FFFFFF"
         android:onClick="AvanzarPregunta"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/salir"
         app:layout_constraintTop_toBottomOf="@+id/marcoPregunta"
-        app:layout_constraintVertical_bias="0.672"
-        app:srcCompat="@drawable/abc_vector_test" />
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/flecha" />
 
     <TextView
         android:id="@+id/contadorPreguntas"
@@ -73,9 +76,9 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/botonSiguiente"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toEndOf="@+id/salir"
         app:layout_constraintTop_toBottomOf="@+id/marcoPregunta"
-        app:layout_constraintVertical_bias="0.102" />
+        app:layout_constraintVertical_bias="0.421" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
