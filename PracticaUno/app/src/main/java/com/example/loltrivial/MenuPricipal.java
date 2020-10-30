@@ -21,6 +21,9 @@ public class MenuPricipal extends AppCompatActivity{
         nickUsuario = findViewById(R.id.CampoUsuario);
         nickUsuario.setText(LogIn.nombreUsuario.getText());
         nickUsuario.setPaintFlags(0);
+
+        //Llamadas iniciales
+        PantallaCompleta();
     }
 
     public void onBackPressed() {
@@ -70,11 +73,27 @@ public class MenuPricipal extends AppCompatActivity{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                        PantallaCompleta();
                     }
                 });
 
         //Crear la caja de alerta
         AlertDialog cajaAlerta  = alerta.create();
         cajaAlerta.show();
+    }
+
+    public void PantallaCompleta(){
+        //Esconder la botonera del dispositivo (retractil)
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+
+                        |View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+                        |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        |View.SYSTEM_UI_FLAG_FULLSCREEN
+        );
     }
 }

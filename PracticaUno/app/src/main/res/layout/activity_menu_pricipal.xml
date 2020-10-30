@@ -56,41 +56,44 @@
 
     <ImageButton
         android:id="@+id/Jugar"
-        android:layout_width="204dp"
-        android:layout_height="60dp"
+        android:layout_width="175dp"
+        android:layout_height="67dp"
         android:layout_marginTop="64dp"
+        android:background="#00FFFFFF"
         android:onClick="EntrarPartida"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CampoUsuario"
-        app:srcCompat="@drawable/applogo" />
+        app:srcCompat="@drawable/botonjugar" />
 
     <ImageButton
         android:id="@+id/Categoria"
-        android:layout_width="204dp"
-        android:layout_height="60dp"
+        android:layout_width="175dp"
+        android:layout_height="67dp"
         android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
         android:onClick="EntrarCategoria"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Jugar"
-        app:srcCompat="@drawable/applogo" />
+        app:srcCompat="@drawable/botonacategoria" />
 
     <ImageButton
         android:id="@+id/Ajustes"
-        android:layout_width="204dp"
-        android:layout_height="60dp"
+        android:layout_width="175dp"
+        android:layout_height="67dp"
         android:layout_marginTop="20dp"
+        android:background="#00FFFFFF"
         android:onClick="EntrarAjustes"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Categoria"
-        app:srcCompat="@drawable/applogo" />
+        app:srcCompat="@drawable/botonajustes" />
 
     <Button
         android:id="@+id/Salir"

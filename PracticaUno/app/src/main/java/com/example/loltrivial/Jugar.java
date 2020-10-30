@@ -66,6 +66,7 @@ public class Jugar extends AppCompatActivity {
         contadorPreguntas.setText(preguntaActual + "/" + totalPreguntas);
 
         //Llamadas a metodos iniciales
+        PantallaCompleta();
         CrearBarraTiempo();
         CrearFragmentoTexto();
     }
@@ -197,6 +198,7 @@ public class Jugar extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                        PantallaCompleta();
                     }
                 });
 
@@ -273,6 +275,7 @@ public class Jugar extends AppCompatActivity {
                                 CrearFragmentoTexto();
                                 break;
                         }
+                        PantallaCompleta();
                         CrearBarraTiempo();
                         contadorPreguntas.setText(++preguntaActual + "/" + totalPreguntas);
                         elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
@@ -298,6 +301,7 @@ public class Jugar extends AppCompatActivity {
                 .setPositiveButton("Ir a la siguiente pregunta",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        PantallaCompleta();
                         AvanzarPregunta(null);
                     }
                 });
@@ -305,5 +309,20 @@ public class Jugar extends AppCompatActivity {
         //Crear la caja de alerta
         AlertDialog cajaAlerta  = alerta.create();
         cajaAlerta.show();
+    }
+
+    public void PantallaCompleta(){
+        //Esconder la botonera del dispositivo (retractil)
+        View view = getWindow().getDecorView();
+        view.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+
+                        |View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+                        |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        |View.SYSTEM_UI_FLAG_FULLSCREEN
+        );
     }
 }
