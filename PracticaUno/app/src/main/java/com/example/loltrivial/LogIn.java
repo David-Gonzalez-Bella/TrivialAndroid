@@ -2,6 +2,7 @@ package com.example.loltrivial;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -19,7 +20,7 @@ public class LogIn extends AppCompatActivity {
     //Variables globales
     public static EditText nombreUsuario;
     private CheckBox checkBox;
-    private MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,18 @@ public class LogIn extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.bensound_adventure);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
-        PantallaCompleta();
         checkBox.setChecked(false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.pause();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mediaPlayer.start();
     }
 
     public void onBackPressed() {
@@ -76,6 +87,7 @@ public class LogIn extends AppCompatActivity {
                 .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        mediaPlayer.stop();
                         finish();
                     }
                 })
@@ -83,27 +95,11 @@ public class LogIn extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        PantallaCompleta();
                     }
                 });
 
         //Crear la caja de alerta
         AlertDialog cajaAlerta  = alerta.create();
         cajaAlerta.show();
-    }
-
-    public void PantallaCompleta(){
-        //Esconder la botonera del dispositivo (retractil)
-        View view = getWindow().getDecorView();
-        view.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-
-                        |View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
-                        |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        |View.SYSTEM_UI_FLAG_FULLSCREEN
-        );
     }
 }

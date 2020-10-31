@@ -2,6 +2,7 @@ package com.example.loltrivial;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,21 +13,47 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 
 public class Ajustes extends AppCompatActivity {
 
     private AudioManager audioManager;
     private SeekBar barraVolumen;
     private Switch cambiarModo;
+    public ConstraintLayout fondo;
+    public static boolean fondoOscuro = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
 
+        fondo = findViewById(R.id.fondoLayout);
+        barraVolumen = findViewById(R.id.barraVolumen);
+        cambiarModo = findViewById(R.id.cambiarModo);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        //Llamadas iniciales
+        if(Ajustes.fondoOscuro)
+        {
+            cambiarModo.setText("Oscuro");
+            fondo.setBackgroundResource(R.drawable.fondomenuprincipal);
+        }else{
+            cambiarModo.setText("Claro");
+            fondo.setBackgroundResource(R.drawable.fondomenuprincipalclaro);
+        }
         SeekBarFunction();
-        PantallaCompleta();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogIn.mediaPlayer.pause();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogIn.mediaPlayer.start();
     }
 
     @Override
@@ -35,7 +62,7 @@ public class Ajustes extends AppCompatActivity {
     }
 
     public void SeekBarFunction(){
-        barraVolumen = findViewById(R.id.barraVolumen);
+
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         barraVolumen.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
         barraVolumen.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
@@ -57,6 +84,17 @@ public class Ajustes extends AppCompatActivity {
         });
     }
 
+    public void CambiarTema(View v){
+        fondoOscuro = !fondoOscuro;
+        if(fondoOscuro){
+            cambiarModo.setText("Oscuro");
+            fondo.setBackgroundResource(R.drawable.fondomenuprincipal);
+        }else{
+            cambiarModo.setText("Claro");
+            fondo.setBackgroundResource(R.drawable.fondomenuprincipalclaro);
+        }
+    }
+
     private void IrMenuPrincipal(){
         Intent menuPrincipal = new Intent(this, MenuPricipal.class);
         menuPrincipal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -68,9 +106,9 @@ public class Ajustes extends AppCompatActivity {
         //Crear el objeto alerta
         AlertDialog.Builder alerta = new AlertDialog.Builder(this); //Creamos una alerta
         alerta.setTitle("¿Quieres salir?")
-                .setMessage("Perderás el progreso actual")
+                .setMessage("Volverás al menú principal")
                 .setCancelable(false)
-                .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+                .setPositiveButton("Sí",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         IrMenuPrincipal();
@@ -80,27 +118,12 @@ public class Ajustes extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        PantallaCompleta();
+                        //PantallaCompleta();
                     }
                 });
 
         //Crear la caja de alerta
         AlertDialog cajaAlerta  = alerta.create();
         cajaAlerta.show();
-    }
-
-    public void PantallaCompleta(){
-        //Esconder la botonera del dispositivo (retractil)
-        View view = getWindow().getDecorView();
-        view.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-
-                        |View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
-                        |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        |View.SYSTEM_UI_FLAG_FULLSCREEN
-        );
     }
 }

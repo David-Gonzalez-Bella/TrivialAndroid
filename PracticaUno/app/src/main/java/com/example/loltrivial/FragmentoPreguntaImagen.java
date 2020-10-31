@@ -89,6 +89,12 @@ public class FragmentoPreguntaImagen extends Fragment {
         r3 = view.findViewById(R.id.respuesta3);
         r4 = view.findViewById(R.id.respuesta4);
 
+        if(Ajustes.fondoOscuro) {
+            enunciado.setTextColor(0xFFFFFFFF);
+        }else{
+            enunciado.setTextColor(0xFF000000);
+        }
+
         r1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

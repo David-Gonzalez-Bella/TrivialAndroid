@@ -89,6 +89,20 @@ public class FragmentoPregunta extends Fragment{
         r3 = view.findViewById(R.id.respuesta3);
         r4 = view.findViewById(R.id.respuesta4);
 
+        if(Ajustes.fondoOscuro) {
+            enunciado.setTextColor(0xFFFFFFFF);
+            r1.setTextColor(0xFFFFFFFF);
+            r2.setTextColor(0xFFFFFFFF);
+            r3.setTextColor(0xFFFFFFFF);
+            r4.setTextColor(0xFFFFFFFF);
+        }else{
+            enunciado.setTextColor(0xFF000000);
+            r1.setTextColor(0xFF000000);
+            r2.setTextColor(0xFF000000);
+            r3.setTextColor(0xFF000000);
+            r4.setTextColor(0xFF000000);
+        }
+
         r1.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {

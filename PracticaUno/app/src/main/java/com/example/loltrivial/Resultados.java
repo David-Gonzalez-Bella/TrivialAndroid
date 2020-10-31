@@ -2,6 +2,7 @@ package com.example.loltrivial;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 public class Resultados extends AppCompatActivity {
 
+    public ConstraintLayout fondo;
     public static MediaPlayer sonidoVictoria_snd;
 
     @Override
@@ -22,8 +24,24 @@ public class Resultados extends AppCompatActivity {
 
         sonidoVictoria_snd = MediaPlayer.create(this, R.raw.pantalla_resultados);
         TextView textoResultado = findViewById(R.id.textoResultado);
+        fondo = findViewById(R.id.fondoLayout);
         textoResultado.setText(""+Jugar.acertadas);
         sonidoVictoria_snd.start();
+
+        //Llamadas iniciales
+        if(Ajustes.fondoOscuro){ fondo.setBackgroundResource(R.drawable.fondomenuprincipal); }
+        else{ fondo.setBackgroundResource(R.drawable.fondomenuprincipalclaro); }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogIn.mediaPlayer.pause();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogIn.mediaPlayer.start();
     }
 
     @Override
@@ -33,7 +51,6 @@ public class Resultados extends AppCompatActivity {
 
     public void EntrarMenuP(View v){
         IrMenuPrincipal();
-        //finish();
     }
 
     public void SalirMenuPrincipalAlerta(View v){

@@ -2,32 +2,66 @@ package com.example.loltrivial;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MenuPricipal extends AppCompatActivity{
     public TextView nickUsuario;
+    public ConstraintLayout fondo;
+    public ImageButton icono;
+    private ArrayList<Integer> galeria = new ArrayList<Integer>();
+    private int indiceGaleria = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_pricipal);
+
+        fondo = findViewById(R.id.fondoLayout);
         nickUsuario = findViewById(R.id.CampoUsuario);
+        icono = findViewById(R.id.Icono);
         nickUsuario.setText(LogIn.nombreUsuario.getText());
         nickUsuario.setPaintFlags(0);
 
+        galeria.add(R.drawable.iconkata);
+        galeria.add(R.drawable.iconori);
+        galeria.add(R.drawable.iconquinn);
+        galeria.add(R.drawable.iconxayah);
+
         //Llamadas iniciales
-        PantallaCompleta();
+        if(Ajustes.fondoOscuro){ fondo.setBackgroundResource(R.drawable.fondomenuprincipal); }
+        else{ fondo.setBackgroundResource(R.drawable.fondomenuprincipalclaro); }
+        icono.setImageResource(galeria.get(indiceGaleria % galeria.size()));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogIn.mediaPlayer.pause();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogIn.mediaPlayer.start();
     }
 
     public void onBackPressed() {
         SalirAlerta(null);
+    }
+
+    public void CambarIcono(View v){
+        icono.setImageResource(galeria.get(++indiceGaleria % galeria.size()));
     }
 
     public void EntrarPartida(View v){
@@ -55,6 +89,7 @@ public class MenuPricipal extends AppCompatActivity{
         Intent pantallaLog = new Intent(this, LogIn.class);
         pantallaLog.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(pantallaLog);
+        LogIn.mediaPlayer.stop();
         finish();
     }
     public void SalirAlerta(View v){
@@ -73,27 +108,11 @@ public class MenuPricipal extends AppCompatActivity{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        PantallaCompleta();
                     }
                 });
 
         //Crear la caja de alerta
         AlertDialog cajaAlerta  = alerta.create();
         cajaAlerta.show();
-    }
-
-    public void PantallaCompleta(){
-        //Esconder la botonera del dispositivo (retractil)
-        View view = getWindow().getDecorView();
-        view.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-
-                        |View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
-                        |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        |View.SYSTEM_UI_FLAG_FULLSCREEN
-        );
     }
 }

@@ -2,6 +2,7 @@ package com.example.loltrivial;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -11,6 +12,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ public class Jugar extends AppCompatActivity {
     public static ArrayList<Pregunta> preguntas;
     public static ArrayList<PreguntaImagen> preguntasImagen;
     public static ArrayList<PreguntaHibrida> preguntasMixtas;
+    public ConstraintLayout fondo;
     public static int preguntaId;
     public static int preguntaImagenId;
     public static int preguntaMixtaId;
@@ -46,9 +49,11 @@ public class Jugar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jugar);
 
+
         //Encontrar la referencia al control correspondiente
         contadorPreguntas = findViewById(R.id.contadorPreguntas);
         barraTiempo = findViewById(R.id.tiempo);
+        fondo = findViewById(R.id.fondoLayout);
 
         //Inicializar
         preguntas = ListaPreguntas.INSTANCE.getPreguntas();
@@ -64,11 +69,29 @@ public class Jugar extends AppCompatActivity {
         elegirRespuesta_snd = MediaPlayer.create(this, R.raw.elegir_respuesta);
         totalPreguntas = preguntas.size() + preguntasImagen.size() + preguntasMixtas.size();
         contadorPreguntas.setText(preguntaActual + "/" + totalPreguntas);
+        if(Ajustes.fondoOscuro)
+        {
+            fondo.setBackgroundResource(R.drawable.pantallajuego);
+            contadorPreguntas.setTextColor(0xFFFFFFFF);
+        } else{
+            fondo.setBackgroundResource(R.drawable.pantallajuegoclaro);
+            contadorPreguntas.setTextColor(0xFF687372);
+        }
 
         //Llamadas a metodos iniciales
-        PantallaCompleta();
         CrearBarraTiempo();
         CrearFragmentoTexto();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogIn.mediaPlayer.pause();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogIn.mediaPlayer.start();
     }
 
     @Override
@@ -97,7 +120,6 @@ public class Jugar extends AppCompatActivity {
                             CrearFragmentoImagen();
                             CrearBarraTiempo();
                             contadorPreguntas.setText(++preguntaActual + "/" + totalPreguntas);
-                            //elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
                         }
                     }
                 }
@@ -116,7 +138,6 @@ public class Jugar extends AppCompatActivity {
                             CrearFragmentoHibrido();
                             CrearBarraTiempo();
                             contadorPreguntas.setText(++preguntaActual + "/" + totalPreguntas);
-                            //elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
                         }
                     }
                 }
@@ -135,9 +156,9 @@ public class Jugar extends AppCompatActivity {
                             CrearFragmentoTexto();
                             CrearBarraTiempo();
                             contadorPreguntas.setText(++preguntaActual + "/" + totalPreguntas);
-                            //elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
                         }
                     }else{
+                        if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
                         Intent menuResultados = new Intent(this, Resultados.class); //Vamos a la pantalla de resultados
                         menuResultados.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(menuResultados);
@@ -188,7 +209,7 @@ public class Jugar extends AppCompatActivity {
         alerta.setTitle("¿Quieres salir?")
                 .setMessage("Perderás el progreso actual")
                 .setCancelable(false)
-                .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+                .setPositiveButton("Sí",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         IrMenuPrincipal();
@@ -198,7 +219,7 @@ public class Jugar extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        PantallaCompleta();
+                        //PantallaCompleta();
                     }
                 });
 
@@ -275,7 +296,6 @@ public class Jugar extends AppCompatActivity {
                                 CrearFragmentoTexto();
                                 break;
                         }
-                        PantallaCompleta();
                         CrearBarraTiempo();
                         contadorPreguntas.setText(++preguntaActual + "/" + totalPreguntas);
                         elegida = 0; //La pregunta elegido al cambiar de pregunta sera, evidentemente, 0
@@ -301,7 +321,6 @@ public class Jugar extends AppCompatActivity {
                 .setPositiveButton("Ir a la siguiente pregunta",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        PantallaCompleta();
                         AvanzarPregunta(null);
                     }
                 });
@@ -309,20 +328,5 @@ public class Jugar extends AppCompatActivity {
         //Crear la caja de alerta
         AlertDialog cajaAlerta  = alerta.create();
         cajaAlerta.show();
-    }
-
-    public void PantallaCompleta(){
-        //Esconder la botonera del dispositivo (retractil)
-        View view = getWindow().getDecorView();
-        view.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-
-                        |View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
-                        |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        |View.SYSTEM_UI_FLAG_FULLSCREEN
-        );
     }
 }
