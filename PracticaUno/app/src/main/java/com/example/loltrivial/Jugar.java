@@ -25,6 +25,7 @@ public class Jugar extends AppCompatActivity {
     public static ArrayList<PreguntaImagen> preguntasImagen;
     public static ArrayList<PreguntaHibrida> preguntasMixtas;
     public ConstraintLayout fondo;
+    public TextView puntuacion;
     public static int preguntaId;
     public static int preguntaImagenId;
     public static int preguntaMixtaId;
@@ -54,6 +55,7 @@ public class Jugar extends AppCompatActivity {
         contadorPreguntas = findViewById(R.id.contadorPreguntas);
         barraTiempo = findViewById(R.id.tiempo);
         fondo = findViewById(R.id.fondoLayout);
+        puntuacion = findViewById(R.id.puntuacion);
 
         //Inicializar
         preguntas = ListaPreguntas.INSTANCE.getPreguntas();
@@ -64,6 +66,7 @@ public class Jugar extends AppCompatActivity {
         preguntaMixtaId = -1;
         elegida = 0;
         acertadas = 0;
+        puntuacion.setText("Puntuacion: " + acertadas);
         preguntaActual = 1;
         correcta = false;
         elegirRespuesta_snd = MediaPlayer.create(this, R.raw.elegir_respuesta);
@@ -231,6 +234,7 @@ public class Jugar extends AppCompatActivity {
     public void ComprobarCorrecta(){
         if(preguntas.get(preguntaId).getCorrecta() == elegida){
             acertadas++;
+            puntuacion.setText("Puntuacion: " + acertadas);
             correcta = true;
         }
     }
@@ -238,6 +242,7 @@ public class Jugar extends AppCompatActivity {
     public void ComprobarCorrectaImagen(){
         if(preguntasImagen.get(preguntaImagenId).getCorrecta() == elegida){
             acertadas++;
+            puntuacion.setText("Puntuacion: " + acertadas);
             correcta = true;
         }
     }
@@ -245,6 +250,7 @@ public class Jugar extends AppCompatActivity {
     public void ComprobarCorrectaHibrida(){
         if(preguntasMixtas.get(preguntaMixtaId).getCorrecta() == elegida){
             acertadas++;
+            puntuacion.setText("Puntuacion: " + acertadas);
             correcta = true;
         }
     }
