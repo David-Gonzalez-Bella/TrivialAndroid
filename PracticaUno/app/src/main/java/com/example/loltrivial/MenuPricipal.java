@@ -96,7 +96,7 @@ public class MenuPricipal extends AppCompatActivity{
         //Crear el objeto alerta
         AlertDialog.Builder alerta = new AlertDialog.Builder(this); //Creamos una alerta
         alerta.setTitle("¿Quieres salir?")
-                .setMessage("Volveras a la pantalla de log in")
+                .setMessage("Volverás a la pantalla de log in")
                 .setCancelable(false)
                 .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
                     @Override
