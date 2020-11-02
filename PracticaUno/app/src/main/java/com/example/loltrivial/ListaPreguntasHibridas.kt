@@ -27,7 +27,7 @@ object ListaPreguntasHibridas {
         )
         val preg3 = PreguntaHibrida(
                 3,
-                "¿Cómo se llama el guardian de soraka guardianas de las estrellas?",
+                "¿Cómo se llama el guardian de Soraka guardiana de las estrellas?",
                 R.drawable.soraka_guardian,
                 "Shisa",
                 "Saki",
