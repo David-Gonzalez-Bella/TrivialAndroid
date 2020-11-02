@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,12 +27,16 @@ public class LogIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Encontrar las referencias a los controles
         nombreUsuario = findViewById(R.id.CampoNombre);
         checkBox = findViewById(R.id.nombreValido);
 
-        //Llamadas iniciales
+        //Inicializaciones
         mediaPlayer = MediaPlayer.create(this, R.raw.bensound_adventure);
-        mediaPlayer.setLooping(true);
+
+        //Llamadas iniciales
+        mediaPlayer.setLooping(true); //La musica de fondo debe estar en loop y reprodicirse desde el primer momento
         mediaPlayer.start();
         checkBox.setChecked(false);
     }

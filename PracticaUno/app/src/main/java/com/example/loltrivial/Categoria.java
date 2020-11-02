@@ -11,15 +11,19 @@ import android.view.View;
 
 public class Categoria extends AppCompatActivity {
 
+    //Variables globales
     public ConstraintLayout fondo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categoria);
+
+        //Encontrar las referencias a los controles
         fondo = findViewById(R.id.fondoLayout);
 
-        if(Ajustes.fondoOscuro){ fondo.setBackgroundResource(R.drawable.fondomenuprincipal); }
+        //Llamadas iniciales
+        if(Ajustes.fondoOscuro){ fondo.setBackgroundResource(R.drawable.fondomenuprincipal); } //Establecer el tema claro u oscuro segun corresponda
         else{ fondo.setBackgroundResource(R.drawable.fondomenuprincipalclaro); }
     }
 
@@ -33,6 +37,8 @@ public class Categoria extends AppCompatActivity {
         super.onResume();
         LogIn.mediaPlayer.start();
     }
+
+    public void onBackPressed() { SalirMenuPrincipalAlerta(null); }
 
     private void IrMenuPrincipal(){
         Intent menuPrincipal = new Intent(this, MenuPricipal.class);

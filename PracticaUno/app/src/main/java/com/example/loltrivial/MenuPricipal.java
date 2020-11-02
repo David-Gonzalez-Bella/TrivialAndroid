@@ -17,10 +17,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MenuPricipal extends AppCompatActivity{
+
+    //Variables globales
     public TextView nickUsuario;
     public ConstraintLayout fondo;
     public ImageButton icono;
-    private ArrayList<Integer> galeria = new ArrayList<Integer>();
+    private ArrayList<Integer> galeria;
     private int indiceGaleria = 0;
 
     @Override
@@ -28,21 +30,24 @@ public class MenuPricipal extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_pricipal);
 
+        //Encontrar las referencias a los controles
         fondo = findViewById(R.id.fondoLayout);
         nickUsuario = findViewById(R.id.CampoUsuario);
         icono = findViewById(R.id.Icono);
-        nickUsuario.setText(LogIn.nombreUsuario.getText());
-        nickUsuario.setPaintFlags(0);
 
+        //Inicializaciones
+        galeria = new ArrayList<Integer>();
         galeria.add(R.drawable.iconkata);
         galeria.add(R.drawable.iconori);
         galeria.add(R.drawable.iconquinn);
         galeria.add(R.drawable.iconxayah);
 
         //Llamadas iniciales
-        if(Ajustes.fondoOscuro){ fondo.setBackgroundResource(R.drawable.fondomenuprincipal); }
+        if(Ajustes.fondoOscuro){ fondo.setBackgroundResource(R.drawable.fondomenuprincipal); } //Este metodo sera llamado al pulsar el switch que cambia de tema claro a oscuro
         else{ fondo.setBackgroundResource(R.drawable.fondomenuprincipalclaro); }
         icono.setImageResource(galeria.get(indiceGaleria % galeria.size()));
+        nickUsuario.setText(LogIn.nombreUsuario.getText());
+        nickUsuario.setPaintFlags(0);
     }
 
     @Override

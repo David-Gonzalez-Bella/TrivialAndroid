@@ -8,15 +8,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Switch;
-import android.widget.TextView;
 
 public class Ajustes extends AppCompatActivity {
 
+    //Variables globales
     private AudioManager audioManager;
     private SeekBar barraVolumen;
     private Switch cambiarModo;
@@ -28,13 +27,14 @@ public class Ajustes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
 
+        //Encontrar las referencias a los controles
         fondo = findViewById(R.id.fondoLayout);
         barraVolumen = findViewById(R.id.barraVolumen);
         cambiarModo = findViewById(R.id.cambiarModo);
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
 
         //Llamadas iniciales
-        if(Ajustes.fondoOscuro)
+        if(Ajustes.fondoOscuro)  //Establecer el tema claro u oscuro segun corresponda
         {
             cambiarModo.setText("Oscuro");
             fondo.setBackgroundResource(R.drawable.fondomenuprincipal);
@@ -42,7 +42,8 @@ public class Ajustes extends AppCompatActivity {
             cambiarModo.setText("Claro");
             fondo.setBackgroundResource(R.drawable.fondomenuprincipalclaro);
         }
-        SeekBarFunction();
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        EstablecerBarraVolumen();
     }
 
     @Override
@@ -61,7 +62,7 @@ public class Ajustes extends AppCompatActivity {
         SalirMenuPrincipalAlerta(null);
     }
 
-    public void SeekBarFunction(){
+    public void EstablecerBarraVolumen(){
 
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         barraVolumen.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
@@ -84,7 +85,7 @@ public class Ajustes extends AppCompatActivity {
         });
     }
 
-    public void CambiarTema(View v){
+    public void CambiarTema(View v){ //Este metodo sera llamado al pulsar el switch que cambia de tema claro a oscuro
         fondoOscuro = !fondoOscuro;
         if(fondoOscuro){
             cambiarModo.setText("Oscuro");

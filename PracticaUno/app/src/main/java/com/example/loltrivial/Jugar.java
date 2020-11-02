@@ -21,35 +21,44 @@ import java.util.ArrayList;
 
 public class Jugar extends AppCompatActivity {
 
-    public static ArrayList<Pregunta> preguntas;
-    public static ArrayList<PreguntaImagen> preguntasImagen;
-    public static ArrayList<PreguntaHibrida> preguntasMixtas;
+    //Variables globales
+
+    //Listas de preguntas
+    public ArrayList<Pregunta> preguntas;
+    public ArrayList<PreguntaImagen> preguntasImagen;
+    public ArrayList<PreguntaHibrida> preguntasMixtas;
+
+    //Controles de la actividad
     public ConstraintLayout fondo;
     public TextView puntuacion;
-    public static int preguntaId;
-    public static int preguntaImagenId;
-    public static int preguntaMixtaId;
-    public static int elegida;
-    public static int acertadas;
+    public TextView contadorPreguntas;
+
+    //Contadores y flags
+    public int preguntaId;
+    public int preguntaImagenId;
+    public int preguntaMixtaId;
+    public int elegida;
+    public int acertadas;
     public int preguntaActual;
     public int totalPreguntas;
     public boolean cuentaAtrasActiva;
     private boolean correcta;
-    public TextView contadorPreguntas;
-    public static MediaPlayer elegirRespuesta_snd;
+    public int tiempoTotal;
+
+    //Extras
+    public MediaPlayer elegirRespuesta_snd;
+    public ProgressBar barraTiempo;
+    public CountDownTimer cuentaAtras;
+
+    //Instancia del fragmento de cada tipo
     FragmentoPregunta preguntaFragmento;
     FragmentoPreguntaImagen preguntaImagenFragmento;
     FragmentoPreguntaMixta preguntaMixtaFragmento;
-
-    public ProgressBar barraTiempo;
-    public CountDownTimer cuentaAtras;
-    public int tiempoTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jugar);
-
 
         //Encontrar la referencia al control correspondiente
         contadorPreguntas = findViewById(R.id.contadorPreguntas);
@@ -72,7 +81,7 @@ public class Jugar extends AppCompatActivity {
         elegirRespuesta_snd = MediaPlayer.create(this, R.raw.elegir_respuesta);
         totalPreguntas = preguntas.size() + preguntasImagen.size() + preguntasMixtas.size();
         contadorPreguntas.setText(preguntaActual + "/" + totalPreguntas);
-        if(Ajustes.fondoOscuro)
+        if(Ajustes.fondoOscuro) //Establecer el tema claro u oscuro segun corresponda
         {
             fondo.setBackgroundResource(R.drawable.pantallajuego);
             contadorPreguntas.setTextColor(0xFFFFFFFF);
@@ -163,6 +172,9 @@ public class Jugar extends AppCompatActivity {
                     }else{
                         if(cuentaAtrasActiva){ cuentaAtras.cancel(); }
                         Intent menuResultados = new Intent(this, Resultados.class); //Vamos a la pantalla de resultados
+                        Bundle parametros = new Bundle(); //Pasamos la puntuacion final a la actividad de Resultados
+                        parametros.putInt("acertadas", acertadas);
+                        menuResultados.putExtras(parametros);
                         menuResultados.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(menuResultados);
                         finish();

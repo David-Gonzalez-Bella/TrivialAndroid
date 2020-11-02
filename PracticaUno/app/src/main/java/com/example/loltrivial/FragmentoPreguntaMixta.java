@@ -19,12 +19,14 @@ import android.widget.TextView;
  */
 public class FragmentoPreguntaMixta extends Fragment {
 
+    //Variables globales
     public TextView enunciado;
     public ImageView imagen;
     public RadioButton r1;
     public RadioButton r2;
     public RadioButton r3;
     public RadioButton r4;
+    private Jugar actividadJugar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,12 +64,12 @@ public class FragmentoPreguntaMixta extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Actualizar los textos del fragmento al crearlo
-        enunciado.setText(Jugar.preguntasMixtas.get(Jugar.preguntaMixtaId).getPregunta());
-        imagen.setImageResource(Jugar.preguntasMixtas.get(Jugar.preguntaMixtaId).getImagen());
-        r1.setText(Jugar.preguntasMixtas.get(Jugar.preguntaMixtaId).getOpcion1());
-        r2.setText(Jugar.preguntasMixtas.get(Jugar.preguntaMixtaId).getOpcion2());
-        r3.setText(Jugar.preguntasMixtas.get(Jugar.preguntaMixtaId).getOpcion3());
-        r4.setText(Jugar.preguntasMixtas.get(Jugar.preguntaMixtaId).getOpcion4());
+        enunciado.setText(actividadJugar.preguntasMixtas.get(actividadJugar.preguntaMixtaId).getPregunta());
+        imagen.setImageResource(actividadJugar.preguntasMixtas.get(actividadJugar.preguntaMixtaId).getImagen());
+        r1.setText(actividadJugar.preguntasMixtas.get(actividadJugar.preguntaMixtaId).getOpcion1());
+        r2.setText(actividadJugar.preguntasMixtas.get(actividadJugar.preguntaMixtaId).getOpcion2());
+        r3.setText(actividadJugar.preguntasMixtas.get(actividadJugar.preguntaMixtaId).getOpcion3());
+        r4.setText(actividadJugar.preguntasMixtas.get(actividadJugar.preguntaMixtaId).getOpcion4());
     }
 
     @Override
@@ -93,6 +95,10 @@ public class FragmentoPreguntaMixta extends Fragment {
         r3 = view.findViewById(R.id.respuesta3);
         r4 = view.findViewById(R.id.respuesta4);
 
+        //Inicializar
+        actividadJugar = (Jugar)getActivity();
+
+        //Establecer color de la letra, enfuncion del tema (claro u oscuro)
         if(Ajustes.fondoOscuro) {
             enunciado.setTextColor(0xFFFFFFFF);
             r1.setTextColor(0xFFFFFFFF);
@@ -107,6 +113,7 @@ public class FragmentoPreguntaMixta extends Fragment {
             r4.setTextColor(0xFF000000);
         }
 
+        //Establecer la funcionalidad de los botones
         r1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +121,7 @@ public class FragmentoPreguntaMixta extends Fragment {
                 r3.setChecked(false);
                 r4.setChecked(false);
                 ReproducirSonido();
-                Jugar.elegida = 1;
+                actividadJugar.elegida = 1;
             }
         });
         r2.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +131,7 @@ public class FragmentoPreguntaMixta extends Fragment {
                 r3.setChecked(false);
                 r4.setChecked(false);
                 ReproducirSonido();
-                Jugar.elegida = 2;
+                actividadJugar.elegida = 2;
             }
         });
         r3.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +141,7 @@ public class FragmentoPreguntaMixta extends Fragment {
                 r1.setChecked(false);
                 r4.setChecked(false);
                 ReproducirSonido();
-                Jugar.elegida = 3;
+                actividadJugar.elegida = 3;
             }
         });
         r4.setOnClickListener(new View.OnClickListener() {
@@ -144,17 +151,17 @@ public class FragmentoPreguntaMixta extends Fragment {
                 r2.setChecked(false);
                 r3.setChecked(false);
                 ReproducirSonido();
-                Jugar.elegida = 4;
+                actividadJugar.elegida = 4;
             }
         });
         return view;
     }
 
     public void ReproducirSonido(){
-        if(Jugar.elegirRespuesta_snd.isPlaying()){
-            Jugar.elegirRespuesta_snd.stop();
-            Jugar.elegirRespuesta_snd = MediaPlayer.create(getActivity(), R.raw.elegir_respuesta);
+        if(actividadJugar.elegirRespuesta_snd.isPlaying()){
+            actividadJugar.elegirRespuesta_snd.stop();
+            actividadJugar.elegirRespuesta_snd = MediaPlayer.create(getActivity(), R.raw.elegir_respuesta);
         }
-        Jugar.elegirRespuesta_snd.start();
+        actividadJugar.elegirRespuesta_snd.start();
     }
 }
